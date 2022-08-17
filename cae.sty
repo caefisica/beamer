@@ -1,0 +1,297 @@
+%-------------------------------------------------------------------%
+% Autor:                   David D.                                 %
+% Organización:            Centro de Apoyo al Estudiante de Física  %
+% Fecha de creación:       10-08-2022                               %
+% Fecha de modificación:   17-08-2022                               %
+%-------------------------------------------------------------------%
+ 
+\def\sectionname{}
+\def\insertsectionnumber{}
+\def\subsectionname{}
+\def\insertsubsectionnumber{}
+
+%----------------------------%
+%% Definición de plantillas %%
+%----------------------------%
+
+\setbeamertemplate{navigation symbols}{}                    %% Ocultar símbolos de navegación
+\addtobeamertemplate{frametitle}{}{\color{ColorPrincipal}}  %% Color del título
+%\pgfline{\pgfpoint{1mm}{2mm}}{\pgfpoint{\linewidth}{2mm}}} %% Alternativa para una línea en la portada
+%\vspace{-.5cm}\hdashrule[0.5ex][c]{\linewidth}{1pt}{1.5mm}}%% Alternativa para una línea en la portada
+\setbeamerfont{title}{series=\bfseries}                     %% Título en negrita
+
+%% Diseño de las secciones en la Tabla de Contenidos
+\defbeamertemplate{section in toc}{tablacontenido}
+{\leavevmode\leftskip=1.75ex%
+  \llap{%
+    \usebeamerfont*{section number projected}%
+    \usebeamercolor[bg]{section number projected}%
+    \vrule width2.7ex height2.12ex depth.58ex%
+    \hskip-2.7ex%
+    \hbox to2.7ex{\hfil\color{fg}\MakeUppercase{\romannumeral\inserttocsectionnumber}\hfil}}%
+  \kern1.5ex\textbf\inserttocsection\par}
+\setbeamertemplate{section in toc}[tablacontenido]
+
+%% Diseño de las subsecciones en la Tabla de Contenidos
+\defbeamertemplate{subsection in toc}{subseccion}
+{\leavevmode\leftskip=5ex%
+  \llap{%
+    \usebeamerfont*{subsection number projected}%
+    \usebeamercolor[bg]{subsection number projected}%
+    \hskip-2.7ex%
+    \textbf\inserttocsubsectionnumber.}%
+  \kern1.5ex\textit\inserttocsubsection\par}
+\setbeamertemplate{subsection in toc}[subseccion]
+\setbeamertemplate{headline}[text line]{}
+
+%%---------%%
+%- PORTADA -%
+%%---------%%
+
+%% Línea
+\newcommand{\Linea}{%
+	\raisebox{1mm}[-1cm][10pt]{%
+	\begin{pgfpicture}{0mm}{0mm}{0mm}{0mm}
+		\pgfsetlinewidth{1mm}
+		\color{ColorPrincipal}
+		\pgfline{\pgfpoint{2.6cm}{-2mm}}{\pgfpoint{10cm}{-2mm}}
+	\end{pgfpicture}}
+}
+
+\addtobeamertemplate{title page}{\Linea}
+
+%% Diseño general
+\makeatletter
+\newcommand\titlegraphicii[1]{\def\inserttitlegraphicii{#1}}
+\titlegraphicii{}
+\setbeamertemplate{title page}
+{
+  \vbox{}
+   {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\hfill\inserttitlegraphicii\par}
+  \begin{centering}
+    \begin{beamercolorbox}[sep=8pt,center]{title}
+      \usebeamerfont{title}\inserttitle\par%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      \fi%     
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[sep=8pt,center]{author}
+      \usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=8pt,center]{institute}
+      \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}
+  \end{centering}
+  %\vfill
+}
+
+%% Instituciones
+\makeatletter
+\def\beamer@andinst{\\[0.5em]}
+\makeatother
+
+%% No mostrar encabezado en la portada
+\makeatletter
+\def\ps@navigation@titlepage{%
+  \setbeamertemplate{headline}{}
+  \setbeamertemplate{navigation symbols}{}
+  \@nameuse{ps@navigation}}
+\addtobeamertemplate{title page}{\thispagestyle{navigation@titlepage}}{}
+\makeatother
+
+%%--------%%
+%- ÍNDICE -%
+%%--------%%
+
+%% Añadir numeración y puntos suspensivos en la tabla de contenido.
+%% El código es una versión modificada de de Jasper Habicht.
+
+\newcounter{sectionpage}
+\makeatletter
+
+\patchcmd{\beamer@section}
+    {\addtocontents{toc}{\protect\beamer@sectionintoc{\the\c@section}{#2}{\the\c@page}{\the\c@part}{\the\beamer@tocsectionnumber}}}
+    {\setcounter{sectionpage}{\insertframenumber}\stepcounter{sectionpage}%
+     \addtocontents{toc}{\protect\beamer@sectionintoc{\the\c@section}{#2\dotfill\thesectionpage\vspace{10pt}}{\the\c@page}{\the\c@part}{\the\beamer@tocsectionnumber}}}
+    {}{}
+    
+\patchcmd{\beamer@subsection}
+    {\addtocontents{toc}{\protect\beamer@subsectionintoc{\the\c@section}{\the\c@subsection}{#2}{\the\c@page}{\the\c@part}{\the\beamer@tocsectionnumber}}}
+    {\setcounter{sectionpage}{\insertframenumber}\stepcounter{sectionpage}%
+     \addtocontents{toc}{\protect\beamer@subsectionintoc{\the\c@section}{\the\c@subsection}{#2\dotfill\normalfont\thesectionpage}{\the\c@page}{\the\c@part}{\the\beamer@tocsectionnumber}}}
+    {}{}
+    
+\patchcmd{\beamer@subsubsection}
+    {\addtocontents{toc}{\protect\beamer@subsubsectionintoc{\the\c@section}{\the\c@subsection}{\the\c@subsubsection}{#2}{\the\c@page}{\the\c@part}{\the\beamer@tocsectionnumber}}}
+    {\setcounter{sectionpage}{\insertframenumber}\stepcounter{sectionpage}%
+     \addtocontents{toc}{\protect\beamer@subsubsectionintoc{\the\c@section}{\the\c@subsection}{\the\c@subsubsection}{#2\dotfill\normalfont\thesectionpage}{\the\c@page}{\the\c@part}{\the\beamer@tocsectionnumber}}}
+    {}{}
+
+\makeatother
+
+%%----------------------------%%
+%- Páginas para cada sección, -%
+%- subsección y subsubsección -%
+%%----------------------------%%
+
+\AtBeginSection{\frame{\sectionpage}\addtocounter{framenumber}{0} }
+%\AtBeginSubsection{\frame{\subsectionpage}\addtocounter{framenumber}{-1} }
+%\AtBeginSubsubsection{\frame{\subsubsectionpage}\addtocounter{framenumber}{-1} }
+
+%%---------%%
+%- GENERAL -%
+%%---------%%
+
+%% Título
+\setbeamertemplate{frametitle}{
+    \vspace{4pt}
+    \begin{centering}
+        \textcolor{Cuerpo}{\textbf{\insertframetitle}}
+        \par
+    \end{centering}
+    \vspace{-16pt}
+}
+
+% Títulos de sección
+\setbeamertemplate{section page}
+{
+\begin{centering}
+    \begin{beamercolorbox}[sep=12pt,center]{part title}
+        \usebeamerfont{section title}\vspace{-16pt}\insertsection\par
+    \end{beamercolorbox}
+    \tikz[remember picture,overlay] \node[opacity=.8,inner sep=0pt] at (current page.center){\includegraphics[height=.25cm]{figuras/wave-line-png.png}};
+\end{centering}
+}
+
+%%-----------%%
+%- ELEMENTOS -%
+%%-----------%%
+
+%% Encabezado
+\setbeamertemplate{headline}{%
+\leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=18pt,dp=0cm]{palette quaternary}%
+        \insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt plus1filll}{\hskip0pt plus1filll}
+    \end{beamercolorbox}%
+  }
+}
+
+%% Pie de página
+\setbeamercolor{section in head/foot}{fg=white, bg=ColorPrincipal}
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,left]{section in head/foot}%
+    \usebeamerfont{author in head/foot}\hspace{1.5cm}\insertshortauthor~~\beamer@ifempty{\insertshortinstitute}{}{[\insertshortinstitute]}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,right]{section in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{1.5cm} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+
+% \pgfdeclareimage[width=\paperwidth]{footer}{figuras/cae}
+% \setbeamertemplate{footline}{
+%    \vspace{1.3cm}
+%	\pgfuseimage{footer}%
+%	\color{white}
+%	\pgftext[at=\pgfpoint{-35pt}{5pt},center,bottom]{\insertframenumber/\inserttotalframenumber}
+%}
+
+%%-------------%%
+%- COMPONENTES -%
+%%-------------%%
+
+%% BLOQUES %%
+%% En general
+\setbeamertemplate{block begin}{  
+    \begin{tcolorbox}[
+      title=\insertblocktitle,
+      attach boxed title to top center={yshift=-2mm},
+      enhanced,
+      colback=ColorPrincipal!10!white,
+      colbacktitle=ColorPrincipal,
+      frame empty,
+      borderline={.1pt}{.1pt}{ColorPrincipal!75!black},
+      colframe=ColorPrincipal
+      ]
+}
+\setbeamertemplate{block end}{
+    \end{tcolorbox}
+}
+
+%% Para ecuaciónes (o títulos)
+\newtcolorbox{ecuacion}{%
+    enhanced,
+    boxrule=0pt,
+    frame hidden,
+    borderline west={4pt}{0pt}{ColorPrincipal!75!black},
+    colback=ColorPrincipal!10!white,
+    sharp corners
+}
+
+%% Para alertas
+\newtcolorbox[auto counter,number within=section]{cajadealerta}[1][]{
+  enhanced jigsaw,
+  colback=white,
+  colframe=AlCuerpo,
+  coltitle=AlCuerpo,
+  fonttitle=\bfseries\sffamily,
+  sharp corners,
+  detach title,
+  leftrule=2.7cm,
+  underlay unbroken and first={\node[below,text=white,anchor=east]
+  at ([xshift=-22.5pt]interior.base west) {\Huge\textbf{\faWarning}};},
+  breakable,
+  pad at break=1mm,
+  #1,
+  code={\ifdefempty{\tcbtitletext}{}{\tcbset{before upper={\tcbtitle\par\medskip}}}},
+}
+
+%%-------------------------%%
+%- Entornos PERSONALIZADOS -%
+%%-------------------------%%
+
+%% No mostrar encabezado en una página
+\makeatletter
+    \newenvironment{sinencabezado}{
+        \setbeamertemplate{headline}{}
+    }{}
+\makeatother
+
+%% Mostrar ítems de forma paulatina (enumarate e itemize)
+\makeatletter
+    \newenvironment{animacion}{
+        \beamerdefaultoverlayspecification{<+->}
+    }{}
+\makeatother
+
+%%-------------------------%%
+%- Comandos PERSONALIZADOS -%
+%%-------------------------%%
+
+% Generador de textos
+\def\lip#1#2{\newcount\zz
+\loop
+#2
+\advance\zz1
+\ifnum\zz<#1
+\repeat}
+
+%% Definición de símbolos con líneas más
+%% amplias a través del paquete contour.
+
+\newcommand\itema{\item[\bgroup\contourlength{0.02em}\contour{black}{$\Rightarrow$}\egroup]}
+\newcommand\itemb{\item[\bgroup\contourlength{0.02em}\contour{black}{$\rightarrow$}\egroup]}
+
+%% Más espacio entre líneas
+\makeatletter
+\define@key{beamerframe}{wide}[10pt]{%
+  \def\beamer@cramped{\itemsep #1\topsep0.5pt\relax}}
+\makeatother

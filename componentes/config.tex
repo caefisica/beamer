@@ -1,0 +1,158 @@
+%-------------------------------------------------------------------%
+% Fecha de creación:       10-08-2022                               %
+% Fecha de modificación:   17-08-2022                               %
+%-------------------------------------------------------------------%
+
+%%-----------------------%%
+%- Configuración del PDF -%
+%%-----------------------%%
+
+\hypersetup{
+    colorlinks,
+    pdffitwindow=false,
+    pdfstartview={FitH},
+    linkcolor=black,       % Color de la Tabla de Contenido, \ref, \footnote
+	citecolor=black,       % Color de \cite
+	urlcolor=black         % Color de \url y \href
+}
+
+%%---------------------------%%
+%- Definición de los colores -%
+%%---------------------------%%
+
+\definecolor{ColorPrincipal}{RGB}{79, 105, 217} % Púrpura
+\definecolor{AlTitulo}{RGB}{230, 57, 70}        % Azul Verde
+\definecolor{AlCuerpo}{RGB}{230, 57, 70}        % Alerta
+\definecolor{ExTitulo}{RGB}{216,219,226}        % Fondo gris
+\definecolor{Cuerpo}{RGB}{33, 37, 41}           % Oscuro
+\urlstyle{sf}                                   % Fuente Sans-Serif para los enlaces
+
+%%--------------------%%
+%- Uso de los colores -%
+%%--------------------%%
+
+\usecolortheme[named=ColorPrincipal]{structure}
+\setbeamercolor{block title}{fg = white, bg = ColorPrincipal}
+\setbeamercolor{block body}{bg = ColorPrincipal!15!white}
+\setbeamercolor{block title alerted}{bg = AlTitulo}
+\setbeamercolor{block body alerted}{bg = AlCuerpo!5!white}
+\setbeamercolor{block title example}{bg = ExTitulo}
+\setbeamercolor{block body example}{bg = ExTitulo!15!white}
+\setbeamercolor{alerted text}{fg=white}
+\setbeamertemplate{blocks}[default]
+
+%%----------%%
+%- MÁRGENES -%
+%%----------%%
+
+%% Listas
+\setlist{topsep=1em, itemsep=1em}
+%\useinnertheme{rectangles} % Alternativa para tener listas cuadradas
+
+%% Texto
+\setbeamersize{text margin left=1.5cm,text margin right=1.5cm}
+
+%%------------------------------------%%
+%- CONFIGURACIÓN del paquete Listings -%
+%%------------------------------------%%
+
+\renewcommand{\lstlistingname}{Código}
+\renewcommand{\lstlistlistingname}{Lista de códigos}
+
+\definecolor{codKey}{rgb}{0,0,0}
+\definecolor{colIdentificador}{rgb}{0,0,0.9}
+\definecolor{colComentarios}{rgb}{.4,.4,.4}
+\definecolor{colString}{rgb}{0,0,0.6}
+
+\definecolor{colBack}{rgb}{0.85882, 0.98824, 1}
+\definecolor{codKey}{rgb}{0,0,0}
+\definecolor{colIdentificador}{rgb}{0,0,0.9}
+\definecolor{colComentarios}{rgb}{.4,.4,.4}
+\definecolor{colString}{rgb}{0,0,0.6}
+\definecolor{blackback}{rgb}{0.12941, 0.1451, 0.16078}
+
+\lstset{ %
+    aboveskip=\bigskipamount,
+    backgroundcolor=\color{colBack},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=n,
+    columns=flexible,
+    commentstyle=\color{colComentarios},
+    deletekeywords={...},
+    escapechar={@*},
+    extendedchars=true,
+    linewidth=0.98\linewidth,
+    tab=$\to$,
+    float=tbph,
+    xleftmargin=10pt,
+    frame=single,
+    keepspaces=true,
+    identifierstyle=\color{colIdentificador},
+    keywordstyle=\color{codKey},
+    firstnumber=last,
+    numbers=left,
+    numbersep=7pt,
+    numberstyle=\tiny,
+    rulecolor=\color{black},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    stringstyle=\color{colString},
+    tabsize=2,
+    title=\lstname,
+    frame=shadowbox, 
+    rulesepcolor=\color{blackback},
+    framexbottommargin=6pt,
+    framextopmargin=6pt,
+    framexleftmargin=17pt,
+    framexrightmargin=17pt,
+}
+
+\lstset{%
+        inputencoding=utf8,
+        extendedchars=true,
+        literate=%
+        {é}{{\'{e}}}1
+        {á}{{\'{a}}}1
+        {ó}{{\'{o}}}1
+        {ú}{{\'{u}}}1
+        {í}{{\'{i}}}1
+}
+
+\lstdefinestyle{shell}{language=csh,basicstyle=\ttfamily\footnotesize}
+\lstdefinestyle{shellp}{language=csh,basicstyle=\ttfamily\scriptsize}
+\lstdefinestyle{php}{language=php,basicstyle=\ttfamily\footnotesize}
+\lstdefinestyle{phpp}{language=php,basicstyle=\ttfamily\scriptsize}
+\lstdefinestyle{ansic}{language=c,basicstyle=\ttfamily\footnotesize}
+\lstdefinestyle{ansicp}{language=c,basicstyle=\ttfamily\scriptsize}
+\lstdefinestyle{java}{language=java,basicstyle=\ttfamily\footnotesize}
+\lstdefinestyle{javap}{language=java,basicstyle=\ttfamily\scriptsize}
+\lstdefinestyle{matlab}{language=matlab,basicstyle=\ttfamily\footnotesize}
+\lstdefinestyle{matlabp}{language=matlab,basicstyle=\ttfamily\scriptsize}
+\lstdefinestyle{python}{language=python,basicstyle=\ttfamily\footnotesize}
+\lstdefinestyle{pythonp}{language=python,basicstyle=\ttfamily\scriptsize}
+\lstdefinestyle{xml}{language=xml,basicstyle=\ttfamily\footnotesize}
+\lstdefinestyle{xmlp}{language=xml,basicstyle=\ttfamily\scriptsize}
+\lstdefinestyle{sql}{language=sql,basicstyle=\ttfamily\footnotesize}
+\lstdefinestyle{sqlp}{language=sql,basicstyle=\ttfamily\scriptsize}
+\lstdefinestyle{fortran}{language=fortran,basicstyle=\ttfamily\scriptsize}
+
+\newcommand{\ansic}{\lstset{style=ansic}}
+\newcommand{\ansicp}{\lstset{style=ansicp}}
+\newcommand{\java}{\lstset{style=java}}
+\newcommand{\javap}{\lstset{style=javap}}
+\newcommand{\sql}{\lstset{style=sql}}
+\newcommand{\sqlp}{\lstset{style=sqlp}}
+\newcommand{\xml}{\lstset{style=xml}}
+\newcommand{\xmlp}{\lstset{style=xmlp}}
+\newcommand{\python}{\lstset{style=python}}
+\newcommand{\pythonp}{\lstset{style=pythonp}}
+\newcommand{\csh}{\lstset{style=shell}}
+\newcommand{\cshp}{\lstset{style=shellp}}
+\newcommand{\shell}{\lstset{style=shell}}
+\newcommand{\shellp}{\lstset{style=shellp}}
+\newcommand{\fortran}{\lstset{style=fortran}}
+
+\newcommand{\includecode}[2]{\lstinputlisting[caption=,escapechar={@*},style=#1]{#2}}

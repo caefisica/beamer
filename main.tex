@@ -1,0 +1,131 @@
+\documentclass[aspectratio=169]{beamer}
+
+\input{componentes/paquetes}
+\input{componentes/config}
+
+\title[Título en el pie de página]{Un título interesante}
+\subtitle{Día 1: El subtítulo descriptivo}
+\author{Primer autor\inst{1} \and Segundo autor\inst{2}}
+\institute[Institución 1 \and Institución 2]{\inst{1} Institución a la que pertenece el primer autor \and \inst{2} Institución a la que pertenece el segundo autor}
+
+% Inicio de la presentación
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{sinencabezado}
+\begin{frame}{Tabla de contenido}
+    \tableofcontents
+\end{frame}
+\end{sinencabezado}
+
+\section{Primera sección}
+\subsection{Estructura}
+\begin{frame}
+\frametitle{Diapositiva con dos columnas y una imagen}
+
+    \begin{multicols}{2}
+        \noindent
+        Muchas veces es necesario utilizar imágenes para mantener el nivel de participación de los participantes. Nuestra plantilla tiene en mente el uso de imágenes en dos columnas, situación que suele causar problemas de alineación. Adicionalmente, puedes utilizar el argumento: \lstinline{trim\{0 0 0 0\}} para recortar tus imágenes. Cambia los valores dados a los deseados. Deja que LaTeX haga el trabajo.
+        \begin{figure}[t]
+            \centering
+            \includegraphics[width=0.25\textwidth,trim={2cm 0 0 0}]{figuras/image.png}
+            \caption{Descripción de la imagen}
+            \label{fig:my_label}
+        \end{figure}
+\end{multicols}
+\end{frame}
+
+\subsection{Listas}
+\begin{frame}{Diapositiva con listas I}
+    \begin{animacion}
+    \begin{enumerate}[label=\Alph*)]
+        \item \textbf{Lista de primer nivel}
+            \begin{enumerate}[label=\arabic*)]
+                \item \textbf{Lista de segundo nivel} \\
+                Si deseas cambiar el estilo de las numeraciones utiliza los siguientes argumentos opcionales \lstinline{\[label=\]}. Puedes utilizar \lstinline{\\Alph*} para letras, \lstinline{\\Roman*} para números romanos o \lstinline{\\arabic} para número arábigos.
+                \item \textbf{Una segunda lista de segundo nivel} \\
+                Si deseas utilizar un efecto de animación en las listas utiliza el siguiente entorno \lstinline{\\begin\{animacion\}} alrededor de tu lista.
+            \end{enumerate}
+        \item \textbf{Segunda lista de primer nivel.}
+    \end{enumerate}
+    \end{animacion}
+\end{frame}
+
+\begin{frame}{Diapositiva con listas II}
+    \begin{itemize}
+        \item \textbf{Lista de primer nivel}
+            \begin{itemize}
+                \item \textbf{Lista de segundo nivel} \\
+                En este caso se ha utilizado únicamente \lstinline{\\begin\{itemize\}} en ambos niveles. Se han dejado los valores predeterminados.
+                \item \textbf{Una segunda lista de segundo nivel} \\
+                Es probable que quieras dar más detalles sobre lo que se realiza específicamente en este punto.
+            \end{itemize}
+        \item \textbf{Segunda lista de primer nivel.}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Diapositiva con listas III}
+    \begin{itemize}
+        \itema \textbf{Lista de primer nivel}
+            \begin{itemize}
+                \itemb \textbf{Lista de segundo nivel} \\
+                Nótese que en este caso se ha usado \lstinline{\\itema} e \lstinline{\\itemb} en vez de \lstinline{\\item} para cambiar el estilo de las listas.
+                \itemb \textbf{Una segunda lista de segundo nivel} \\
+                Es probable que quieras dar más detalles sobre lo que se realiza específicamente en este punto.
+            \end{itemize}
+        \itema \textbf{Segunda lista de primer nivel.}
+    \end{itemize}
+\end{frame}
+
+\section{Segunda sección}
+\begin{frame}{Diapositiva con solo texto}
+    Esto es un tip totalmente innecesario. Pero hay un comando definido en nuestro tema que te permite generar \textit{dummy text}: \lstinline{\\lip\{número\}\{tu mensaje\}}. Esto puede ser necesario ya que paquetes como \lstinline{lipsum} no permiten escoger la cantidad de palabras generadas. \lip{15}{Este es un mensaje de ejemplo.}
+\end{frame}
+
+\subsection{Código}
+\begin{frame}{Diapositiva con código I}
+
+\includecode{ansic}{componentes/codigo/sum.c}
+
+\end{frame}
+
+\begin{frame}{Diapositiva con código II}
+
+\includecode{fortran}{componentes/codigo/triangulo.f95}
+
+\end{frame}
+
+\section{Tercera sección}
+\subsection{Bloques}
+\begin{frame}{Bloques I: Notificaciones}
+	\begin{block}{Bloque informativo}
+		En algunas ocasiones es necesario resaltar los conceptos más importantes en una sección más llamativa como esta.
+	\end{block}
+    Hay algunos bloques extra aparte de los predeterminados como \lstinline{\\begin\{ecuacion\}} para resaltar algún teorema.
+    \begin{ecuacion}
+        En ocasiones es necesario \textbf{resaltar} una ecuación:
+        \begin{align}
+            \mathcal{H}= \frac{p^2}{2m}+\frac{1}{2}m\omega^2 r^2
+        \end{align}
+    \end{ecuacion}
+\end{frame}
+
+\begin{frame}{Bloques II: Alertas}
+	\begin{alertblock}{Alerta}
+		Esta es una alerta
+	\end{alertblock}
+    \begin{cajadealerta}[title=Alerta]
+        Para mensajes de alerta, a veces es necesario algo más llamativo. Para usar este bloque utiliza \lstinline{\\begin\{cajadealerta\}} con los argumentos iniciales de \lstinline{\[title=Tu titulo\]}
+    \end{cajadealerta}
+\end{frame}
+
+\begin{sinencabezado}
+\begin{frame}{}
+    \centering\Huge\textbf{Fin}
+\end{frame}
+\end{sinencabezado}
+
+\end{document}
